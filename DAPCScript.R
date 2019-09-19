@@ -7,7 +7,7 @@
 library(adegenet)
 
 #Set your working directory, which likely has a different name and pathway
-setwd("~/LINA/Lina Structure without less than 10")
+setwd("~/LINA/Lina Structure without less than 10/")
 
 #Run the program for the file desired, with the number of maximum clusters defined
 #Typically you will want the number of maximum clusters the number of sites sampled + 1
@@ -19,12 +19,13 @@ obj1 <- import2genind(file_name, ncode=3, quiet = TRUE)
 obj1
 group <- find.clusters(obj1, max.n.clust = n_max_clusters)
 #Retain 200 PCs (or over all) and choose the number of clusters on the elbow of the BIC graph
+#Then will need to choose the number of clusters (bottom of graph's elbow) for the example I used 9
 dapc1 <- dapc(obj1, group$grp, res = 1200)
-#Retained informative PCs (we used 100), all eigenvalues retained (so 8 to be safe)
+#Retained informative PCs (we used 100), all discriminant functions retained (so 8 to be safe)
 compoplot(dapc1,
           txt.leg=paste("Cluster", 1:9), lab="",
           ncol=1, xlab="individuals", col=rainbow(9), res = 1200)
-####THIS BLOCK OF CODE WILL SEND YOUR GRAPH TO YOUR SOURCE DIRECTORY, CHECK THERE FOR OUTPUT
+#Different formats for the scatter plots
 scatter(dapc1, posi.da="bottomright", bg="white", pch=20, cstar=0, 
         col=rainbow(9), scree.da=TRUE, posi.pca="bottomleft", cell=1.5, 
         cex=1.5, clab=0, txt.leg=paste("Cluster",1:9), scree.pca=TRUE)
